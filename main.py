@@ -6,7 +6,6 @@ from flask import jsonify, render_template, request
 with app.app_context():
     db.drop_all()
     db.create_all()
-    db.session.commit()
 
 """CRUD operations for item"""
 @app.route('/item/add', methods=['POST'])
@@ -36,7 +35,7 @@ def itemAdd():
 @app.route('/items', methods=['GET'])
 def items():
     try:
-        items = Item.query.all()
+        items = Item.Item.query.all()
         data = [{"weight": item.weight, "description": item.description} for item in items]
         print(data)
         response = jsonify({"statut_code": 200, "items": data})
